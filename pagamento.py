@@ -23,69 +23,58 @@
 
 # Class Base
 class Pagamento:
+
     def processar_pagamento(self, valor):
-        raise NotImplementedError("Subclasses devem implementar este método.")
+        pass
 
-    # Subclasse - CartaoCredito
+
+# Subclasse - CartaoCredito
 class CartaoCredito(Pagamento):
-        def __init__(self, numero_cartao, nome_titular, validade, ccv):
-            self.numero_cartao = numero_cartao
-            self.nome_titular = nome_titular
-            self.validade = validade
-            self.ccv = ccv
+    def __init__(self, numero_cartao, nome_titular, validade, ccv):
+        self.numero_cartao = numero_cartao
+        self.nome_titular = nome_titular
+        self.validade = validade
+        self.ccv = ccv
 
-        def processar_pagamento(self, valor):
-            print(f"€{valor:.2f} com Cartão de Crédito ({self.numero_cartao})")
+    def processar_pagamento(self, valor):
+        print(f"€{valor:.2f} com Cartão de Crédito ({self.numero_cartao})")
 
-    # Subclass - PayPal
+
+# Subclass - PayPal
 class PayPal(Pagamento):
-        def __init__(self, email):
-            self.email = email
+    def __init__(self, email):
+        self.email = email
 
-        def processar_pagamento(self, valor):
-            print(f"€{valor:.2f} com PayPal (e-mail:{self.email})")
+    def processar_pagamento(self, valor):
+        print(f"€{valor:.2f} com PayPal (e-mail: {self.email})")
 
-    # Subclass - Transferência Bancária
+
+# Subclass - Transferência Bancária
 class TransferenciaBancaria:
-        def __init__(self, banco, agencia, conta):
-            self.banco = banco
-            self.agencia = agencia
-            self.conta = conta
+    def __init__(self, banco, agencia, conta):
+        self.banco = banco
+        self.agencia = agencia
+        self.conta = conta
 
-        def processar_pagamento(self, valor):
-            print(f"€{valor:.2f} com Transferência Bancária (banco: {self.banco}, conta: {self.conta})")
-
+    def processar_pagamento(self, valor):
+        print(f"€{valor:.2f} com Transferência Bancária (banco: {self.banco}, conta: {self.conta})")
 
 
 def realizar_pagamento(pagamento, valor):
-    """
-    Função que aceita um objeto do tipo Pagamento e processa o pagamento.
-    
-    Args:
-        pagamento: Objeto que herda de Pagamento
-        valor: Valor a ser pago
-    """
     pagamento.processar_pagamento(valor)
 
 
-# Testes
-if __name__ == "__main__":
-    cartao_credito = CartaoCredito(
+# Testes de Implementação
+cartao_credito = CartaoCredito(
         numero_cartao="1234 5678 9012 3456",
         nome_titular="João Silva",
         validade="12/25",
-        ccv="123"
-    )
-    
-    paypal = PayPal(email="joao.silva@email.com")
-    
-    transferencia = TransferenciaBancaria(
-        banco="Banco Central",
-        agencia="1234",
-        conta="12345678"
-    )
-    
-    
-    realizar_pagamento(cartao_credito, 150.00)
-    realizar_pagamento(paypal, 200.00)
-    realizar_pagamento(transferencia, 300.00)
+        ccv="123",)
+
+paypal = PayPal(email="joao.silva@email.com")
+
+transferencia = TransferenciaBancaria(banco="Banco Central", agencia="1234", conta="12345678")
+
+realizar_pagamento(cartao_credito, 150.00)
+realizar_pagamento(paypal, 200.00)
+realizar_pagamento(transferencia, 300.00)
